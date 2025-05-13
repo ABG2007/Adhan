@@ -1,0 +1,118 @@
+/* 
+ * Styles pour la modale À propos de l'application
+ */
+
+.about-content {
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto;
+    padding: var(--spacing-md);
+}
+
+.app-logo {
+    margin: var(--spacing-lg) auto;
+}
+
+.app-logo img {
+    border-radius: 20%;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border: 2px solid var(--primary-light);
+}
+
+.app-name {
+    font-size: var(--font-xxl);
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-xs);
+}
+
+.app-version {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    font-size: var(--font-sm);
+}
+
+.app-description {
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.6;
+    color: var(--text-primary);
+}
+
+.app-features {
+    text-align: left;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--background-card);
+    border-radius: var(--radius-md);
+}
+
+/* Support RTL pour l'arabe */
+[dir="rtl"] .app-features {
+    text-align: right;
+}
+
+.app-features h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.app-features ul {
+    padding-left: var(--spacing-lg);
+}
+
+/* RTL - Ajuster le padding des listes pour l'arabe */
+[dir="rtl"] .app-features ul {
+    padding-left: 0;
+    padding-right: var(--spacing-lg);
+}
+
+.app-features li {
+    margin-bottom: var(--spacing-sm);
+    line-height: 1.4;
+}
+
+.app-credits {
+    padding-top: var(--spacing-md);
+    border-top: 1px solid var(--divider-color);
+    color: var(--text-secondary);
+    font-size: var(--font-sm);
+}
+
+.app-credits h4 {
+    color: var(--primary-color);
+    margin-bottom: var(--spacing-sm);
+}
+
+.copyright {
+    margin-top: var(--spacing-md);
+    font-size: var(--font-xs);
+}
+
+/* Styles des actions dans les paramètres */
+.settings-actions {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-lg);
+}
+
+.main-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Style du bouton À propos */
+#aboutAppBtn {
+    align-self: center;
+    color: var(--primary-color);
+}
+
+/* Adaptation pour les petits écrans */
+@media (max-width: 480px) {
+    .app-features ul {
+        padding-left: var(--spacing-md);
+    }
+    
+    .settings-actions {
+        gap: var(--spacing-lg);
+    }
+}

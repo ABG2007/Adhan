@@ -1,0 +1,467 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Application d'heures de prière (Adhan) - Retrouvez facilement les heures des 5 prières quotidiennes">
+    <meta name="theme-color" content="#4CAF50">
+    <title>Adhan - Heures de Prière</title>
+
+    <!-- Styles -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/header-rtl-fix.css">
+    <link rel="stylesheet" href="css/logo-image.css">
+    <link rel="stylesheet" href="css/keyboard-nav.css">
+    <link rel="stylesheet" href="css/location-style.css">
+    <link rel="stylesheet" href="css/header-mobile-fix.css">
+    <link rel="stylesheet" href="css/header-icons-fix.css">
+    <link rel="stylesheet" href="css/theme-colors.css">
+    <link rel="stylesheet" href="css/about-modal.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Police arabe (Amiri) -->
+    <link rel="stylesheet" href="css/arabic-font.css">
+
+    <!-- Manifest for PWA -->
+    <link rel="manifest" href="manifest.json">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/icon-192x192.png">
+    <link rel="apple-touch-icon" href="assets/images/icon-192x192.png">
+</head>
+
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <img src="assets/images/icon-48x48.png" alt="Adhan Logo" class="header-logo-img">
+                <h1>Adhan</h1>
+            </div>
+
+            <div class="header-actions">
+                <div class="language-selector-container">
+                    <button id="languageToggle" aria-label="Changer de langue">
+                        <i class="fas fa-globe"></i>
+                        <span class="current-lang">FR</span>
+                    </button>
+                    <div class="language-dropdown">
+                        <div class="language-option" data-lang="fr" title="Français">
+                            <span class="lang-flag">🇫🇷</span>
+                            <span class="lang-name">Français</span>
+                        </div>
+                        <div class="language-option" data-lang="en" title="English">
+                            <span class="lang-flag">🇬🇧</span>
+                            <span class="lang-name">English</span>
+                        </div>
+                        <div class="language-option" data-lang="ar" title="العربية">
+                            <span class="lang-flag">🇩🇿</span>
+                            <span class="lang-name">العربية</span>
+                        </div>
+                        <div class="language-option" data-lang="es" title="Español">
+                            <span class="lang-flag">🇪🇸</span>
+                            <span class="lang-name">Español</span>
+                        </div>
+                        <div class="language-option" data-lang="tr" title="Türkçe">
+                            <span class="lang-flag">🇹🇷</span>
+                            <span class="lang-name">Türkçe</span>
+                        </div>
+                        <div class="language-option" data-lang="de" title="Deutsch">
+                            <span class="lang-flag">🇩🇪</span>
+                            <span class="lang-name">Deutsch</span>
+                        </div>
+                        <div class="language-option" data-lang="id" title="Bahasa Indonesia">
+                            <span class="lang-flag">🇮🇩</span>
+                            <span class="lang-name">Bahasa Indonesia</span>
+                        </div>
+                    </div>
+                </div>
+                <button id="themeToggle" aria-label="Changer de thème">
+                    <i class="fas fa-moon"></i>
+                </button>
+                <button id="settingsBtn" aria-label="Paramètres">
+                    <i class="fas fa-cog"></i>
+                </button>
+            </div>
+        </header>
+
+        <main>
+            <section class="date-display">
+                <div class="gregorian-date" id="gregorianDate"></div>
+                <div class="current-time" id="currentTime"></div>
+            </section>
+
+            <section class="location-info">
+                <div class="location" id="currentLocation">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <span id="locationText">Chargement de la localisation...</span>
+                </div>
+                <button id="changeLocationBtn" class="btn-small">
+                    <i class="fas fa-edit"></i> Changer
+                </button>
+            </section>
+
+            <section class="next-prayer-info">
+                <h2>Prochaine Prière</h2>
+                <div class="next-prayer">
+                    <div class="prayer-name" id="nextPrayerName">Chargement...</div>
+                    <div class="prayer-time" id="nextPrayerTime">--:--</div>
+                </div>
+                <div class="countdown" id="countdown">--:--:--</div>
+            </section>
+
+            <section class="prayer-times">
+                <h2>Horaires des Prières</h2>
+                <div class="prayer-card" data-prayer="fajr">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                        <div class="prayer-name">Fajr</div>
+                    </div>
+                    <div class="prayer-time" id="fajrTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="fajrNotif" class="notification-checkbox" checked>
+                        <label for="fajrNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+
+                <div class="prayer-card" data-prayer="sunrise">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                        <div class="prayer-name">Shuruq</div>
+                    </div>
+                    <div class="prayer-time" id="sunriseTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="sunriseNotif" class="notification-checkbox">
+                        <label for="sunriseNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+
+                <div class="prayer-card" data-prayer="dhuhr">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                        <div class="prayer-name">Dhuhr</div>
+                    </div>
+                    <div class="prayer-time" id="dhuhrTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="dhuhrNotif" class="notification-checkbox" checked>
+                        <label for="dhuhrNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+
+                <div class="prayer-card" data-prayer="asr">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-sun"></i></div>
+                        <div class="prayer-name">Asr</div>
+                    </div>
+                    <div class="prayer-time" id="asrTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="asrNotif" class="notification-checkbox" checked>
+                        <label for="asrNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+
+                <div class="prayer-card" data-prayer="maghrib">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-moon"></i></div>
+                        <div class="prayer-name">Maghrib</div>
+                    </div>
+                    <div class="prayer-time" id="maghribTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="maghribNotif" class="notification-checkbox" checked>
+                        <label for="maghribNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+
+                <div class="prayer-card" data-prayer="isha">
+                    <div class="prayer-info">
+                        <div class="prayer-icon"><i class="fas fa-moon"></i></div>
+                        <div class="prayer-name">Isha</div>
+                    </div>
+                    <div class="prayer-time" id="ishaTime">--:--</div>
+                    <div class="notification-toggle">
+                        <input type="checkbox" id="ishaNotif" class="notification-checkbox" checked>
+                        <label for="ishaNotif"><i class="fas fa-volume-up"></i></label>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <a href="mosques.html" id="findMosquesLinkFooter" class="footer-link">
+                <i class="fas fa-mosque"></i> <span data-translate="footer.findMosques">Trouver des mosquées à
+                    proximité</span>
+            </a>
+            <p class="copyright">&copy; 2024 Adhan App. <span data-translate="footer.copyrightText">Tous droits
+                    réservés.</span></p>
+        </footer>
+
+        <!-- Settings Modal -->
+        <div id="settingsModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Paramètres</h2>
+                    <button id="closeSettingsBtn" class="close-btn">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="settings-section">
+                        <h3 data-translate="settings.sectionCalculationMethod">Méthode de Calcul</h3>
+                        <select id="calculationMethod" class="select-input">
+                            <option value="2">Islamic Society of North America (ISNA)</option>
+                            <option value="0" selected>Muslim World League</option>
+                            <option value="1">Egyptian General Authority of Survey</option>
+                            <option value="3">Umm al-Qura University, Makkah</option>
+                            <option value="4">University of Islamic Sciences, Karachi</option>
+                            <option value="5">Institute of Geophysics, University of Tehran</option>
+                            <option value="7">Shia Ithna-Ashari, Leva Research Institute, Qum</option>
+                            <option value="8">Gulf Region</option>
+                            <option value="9">Kuwait</option>
+                            <option value="10">Qatar</option>
+                            <option value="11">Majlis Ugama Islam Singapura, Singapore</option>
+                            <option value="12">Union Organization islamic de France</option>
+                            <option value="13">Diyanet İşleri Başkanlığı, Turkey</option>
+                            <option value="14">Spiritual Administration of Muslims of Russia</option>
+                        </select>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 data-translate="settings.sectionAsrMethod">Méthode Asr</h3>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="asrStandard" name="asrMethod" value="0" checked>
+                                <label for="asrStandard">Standard (Shafii, Maliki, Hanbali)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="asrHanafi" name="asrMethod" value="1">
+                                <label for="asrHanafi">Hanafi</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 data-translate="settings.sectionTimeFormat">Format de l'Heure</h3>
+                        <div class="radio-group">
+                            <div class="radio-option">
+                                <input type="radio" id="time12h" name="timeFormat" value="12h">
+                                <label for="time12h">12 heures (AM/PM)</label>
+                            </div>
+                            <div class="radio-option">
+                                <input type="radio" id="time24h" name="timeFormat" value="24h" checked>
+                                <label for="time24h">24 heures</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 data-translate="settings.sectionNotifications">Notifications</h3>
+                        <div class="toggle-option">
+                            <span>Activer les notifications audio</span>
+                            <label class="switch">
+                                <input type="checkbox" id="notificationsEnabled" checked>
+                                <span class="slider round"></span>
+                            </label>
+                        </div>
+                        <div class="audio-selection" id="audioSelectionContainer">
+                            <label for="adhanSound">Son de l'Adhan</label>
+                            <select id="adhanSound" class="select-input">
+                                <option value="adhan.mp3" selected>Adhan Standard</option>
+                                <option value="adhan_makkah.mp3">Adhan Makkah</option>
+                                <option value="adhan_fajr.mp3">Adhan Fajr</option>
+                            </select>
+                            <button id="testAdhanBtn" class="btn-small">Test</button>
+                        </div>
+
+                        <div class="audio-selection" style="margin-top: 10px;">
+                            <label for="prayerReminder" data-translate="settings.prayerReminder">Rappel avant la
+                                prière</label>
+                            <select id="prayerReminder" class="select-input">
+                                <option value="0" selected>-</option>
+                                <option value="5">5</option>
+                                <option value="10">10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3 data-translate="settings.sectionTimeAdjustments">Ajustements des Horaires (minutes)</h3>
+                        <div class="adjustment-grid">
+                            <div class="adjustment-item">
+                                <label for="fajrAdjust">Fajr</label>
+                                <input type="number" id="fajrAdjust" class="number-input" value="0" min="-30" max="30">
+                            </div>
+                            <div class="adjustment-item">
+                                <label for="sunriseAdjust">Shuruq</label>
+                                <input type="number" id="sunriseAdjust" class="number-input" value="0" min="-30"
+                                    max="30">
+                            </div>
+                            <div class="adjustment-item">
+                                <label for="dhuhrAdjust">Dhuhr</label>
+                                <input type="number" id="dhuhrAdjust" class="number-input" value="0" min="-30" max="30">
+                            </div>
+                            <div class="adjustment-item">
+                                <label for="asrAdjust">Asr</label>
+                                <input type="number" id="asrAdjust" class="number-input" value="0" min="-30" max="30">
+                            </div>
+                            <div class="adjustment-item">
+                                <label for="maghribAdjust">Maghrib</label>
+                                <input type="number" id="maghribAdjust" class="number-input" value="0" min="-30"
+                                    max="30">
+                            </div>
+                            <div class="adjustment-item">
+                                <label for="ishaAdjust">Isha</label>
+                                <input type="number" id="ishaAdjust" class="number-input" value="0" min="-30" max="30">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3><span id="color-theme-title" data-translate="settings.sectionColorTheme">Thème de
+                                Couleur</span></h3>
+                        <div class="color-theme-options">
+                            <div class="color-option color-green active" data-theme="green" title="Vert (Défaut)"></div>
+                            <div class="color-option color-blue" data-theme="blue" title="Bleu"></div>
+                            <div class="color-option color-crimson" data-theme="crimson" title="Grenat"></div>
+                            <div class="color-option color-orange" data-theme="orange" title="Orange"></div>
+                            <div class="color-option color-pink" data-theme="pink" title="Rose"></div>
+                            <div class="color-option color-purple" data-theme="purple" title="Violet"></div>
+                            <div class="color-option color-emerald" data-theme="emerald" title="Émeraude"></div>
+                        </div>
+                    </div>
+
+                    <div class="settings-actions">
+                        <button id="aboutAppBtn" class="btn text-btn" data-translate="settings.aboutAppButton">À propos
+                            de l'application</button>
+                        <div class="main-actions">
+                            <button id="saveSettingsBtn" class="btn primary-btn">Enregistrer</button>
+                            <button id="resetSettingsBtn" class="btn secondary-btn">Réinitialiser</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Location Modal -->
+        <div id="locationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Choisir une Localisation</h2>
+                    <button id="closeLocationBtn" class="close-btn">&times;</button>
+                </div>
+
+                <div class="modal-body">
+                    <div class="location-options">
+                        <button id="autoLocationBtn" class="btn primary-btn">
+                            <i class="fas fa-location-arrow"></i> Utiliser ma position actuelle
+                        </button>
+
+                        <div class="or-divider">OU</div>
+
+                        <div class="search-container">
+                            <div class="search-input-container">
+                                <input type="text" id="locationSearch" placeholder="Rechercher une ville...">
+                                <button id="searchLocationBtn">
+                                    <i class="fas fa-search"></i>
+                                </button>
+                            </div>
+                            <div id="searchResults" class="search-results"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Notification Permission Modal -->
+        <div id="notificationModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Autorisation de Notification</h2>
+                </div>
+
+                <div class="modal-body">
+                    <p>Adhan souhaite jouer l'adhan à l'heure des prières. Voulez-vous autoriser les notifications
+                        audio?</p>
+                    <div class="notification-actions">
+                        <button id="allowNotificationsBtn" class="btn primary-btn">Autoriser</button>
+                        <button id="denyNotificationsBtn" class="btn secondary-btn">Plus tard</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="loader" class="loader-container">
+            <div class="loader"></div>
+            <p>Chargement des horaires de prière...</p>
+        </div>
+
+        <div id="installPrompt" class="install-prompt">
+            <p><i class="fas fa-mobile-alt"></i> Installez Adhan sur votre appareil</p>
+            <div class="install-actions">
+                <button id="installBtn" class="btn primary-btn">Installer</button>
+                <button id="dismissInstallBtn" class="btn text-btn">Ignorer</button>
+            </div>
+        </div>
+
+        <!-- About App Modal -->
+        <div id="aboutModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2 id="aboutModalTitle">À propos de l'application</h2>
+                    <button id="closeAboutBtn" class="close-btn">&times;</button>
+                </div>
+
+                <div class="modal-body about-content">
+                    <div class="app-logo">
+                        <img src="assets/images/icon-192x192.png" alt="Adhan App Logo" width="80" height="80">
+                    </div>
+
+                    <h3 class="app-name">Adhan</h3>
+                    <p class="app-version"><span id="aboutVersionLabel">Version</span> 1.0.0</p>
+
+                    <div class="app-description">
+                        <p id="aboutDescription">Adhan est une application de prière islamique conçue pour fournir des
+                            horaires de prière précis et des notifications pour les cinq prières quotidiennes.</p>
+                        <p id="aboutDescription2">L'application utilise des méthodes de calcul réputées et prend en
+                            charge plusieurs langues pour servir la communauté musulmane mondiale.</p>
+                    </div>
+
+                    <div class="app-features">
+                        <h4 id="aboutFeaturesTitle">Fonctionnalités principales</h4>
+                        <ul>
+                            <li id="aboutFeature1">Horaires de prière précis basés sur votre localisation</li>
+                            <li id="aboutFeature2">Notifications audio pour chaque prière</li>
+                            <li id="aboutFeature3">Support multilingue (Français, Anglais, Arabe, etc.)</li>
+                            <li id="aboutFeature4">Thèmes de couleur personnalisables</li>
+                            <li id="aboutFeature5">Mode hors-ligne</li>
+                            <li id="aboutFeature6">Interface réactive pour mobile et bureau</li>
+                        </ul>
+                    </div>
+
+                    <div class="app-credits">
+                        <h4 id="aboutCreditsTitle">Crédits</h4>
+                        <p id="aboutDevelopedWith">Développé avec &#10084; pour la communauté musulmane</p>
+                        <p class="copyright">&copy; 2025 Adhan App. <span id="aboutCopyright">Tous droits
+                                réservés.</span></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <audio id="adhanAudio" preload="none">
+            <source src="assets/audio/adhan.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <!-- Scripts -->
+    <script src="js/translations.js"></script>
+    <script src="js/api-handler.js"></script>
+    <script src="js/prayer-times.js"></script>
+    <script src="js/script.js"></script>
+</body>
+
+</html>

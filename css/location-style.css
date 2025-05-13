@@ -1,0 +1,25 @@
+/* 
+ * Styles pour la mise en valeur de la localisation
+ */
+
+/* Agrandir et mettre en gras le texte de localisation */
+#locationText {
+    font-size: 1.2rem; /* Taille de police plus grande */
+    font-weight: 700; /* Police en gras */
+    color: var(--primary-color); /* Couleur principale pour plus de visibilité */
+}
+
+/* Augmenter légèrement la taille de l'icône de localisation pour l'équilibre */
+.location i {
+    font-size: 1.2rem; 
+}
+
+/* Augmenter l'espacement entre l'icône et le texte */
+.location {
+    gap: var(--spacing-md);
+}
+
+/* Style pour le mode sombre */
+.dark-theme #locationText {
+    color: var(--primary-light); /* Couleur plus claire en mode sombre */
+}

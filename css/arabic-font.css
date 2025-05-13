@@ -1,0 +1,11 @@
+/* 
+ * Police arabe pour l'application Adhan - version simplifiée
+ */
+
+/* Importer la police Amiri depuis Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap');
+
+/* Appliquer uniquement pour les éléments en arabe (quand RTL est activé) */
+body.rtl {
+    font-family: 'Amiri', Arial, sans-serif;
+}
