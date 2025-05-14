@@ -1104,3 +1104,43 @@ footer .copyright {
     color: rgba(255, 255, 255, 0.6);
     /* Ajustement pour le thème sombre */
 }
+
+/* Styles pour le bouton d'arrêt de l'Adhan */
+#stopAdhanSoundBtn {
+    background-color: #f44336;
+    /* Couleur rouge pour "stop" */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    /* Pour le rendre rond */
+    width: 70px;
+    /* Ajustez la taille selon vos besoins */
+    height: 70px;
+    /* Ajustez la taille selon vos besoins */
+    font-size: 13px;
+    /* Ajustez si nécessaire */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Ombre portée */
+    /* Utiliser flex pour un centrage facile du texte, même sur plusieurs lignes */
+    display: flex;
+    flex-direction: column;
+    /* Si le texte doit être sur plusieurs lignes et centré */
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    /* Un peu de padding pour le texte */
+    line-height: 1.1;
+    /* Ajustez pour le texte sur plusieurs lignes */
+    /* Le positionnement (margin-top, display:none) est géré en inline et JS pour l'instant */
+    /* Mais vous pouvez ajouter ici : */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#stopAdhanSoundBtn:hover {
+    background-color: #d32f2f;
+    /* Rouge plus foncé au survol */
+}

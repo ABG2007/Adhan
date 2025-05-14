@@ -27,6 +27,8 @@ class AdhanApp {
             nextPrayerName: document.getElementById('nextPrayerName'),
             nextPrayerTime: document.getElementById('nextPrayerTime'),
             countdown: document.getElementById('countdown'),
+            stopAdhanBtn: document.getElementById('stopAdhanBtn'), // Référence au bouton restaurée
+            stopAdhanSoundBtn: document.getElementById('stopAdhanSoundBtn'), // BOUTON POUR LE SON DE L'ADHAN
 
             // Prayer Time Elements
             fajrTime: document.getElementById('fajrTime'),
@@ -133,7 +135,8 @@ class AdhanApp {
             countdownInterval: null,
             notificationTimeout: null,
             offlineMode: false,
-            searchTimeout: null // Ajout pour le debounce de la recherche
+            searchTimeout: null, // Ajout pour le debounce de la recherche
+            adhanPlaying: false // Ajout pour suivre l'état de lecture de l'adhan
         };
 
         // Prayer Times Calculator
@@ -248,21 +251,6 @@ class AdhanApp {
                 this.showLoader(false);
             });
 
-        // Register Service Worker
-        if ('serviceWorker' in navigator) {
-            window.addEventListener('load', () => {
-                navigator.serviceWorker.register('/service-worker.js')
-                    .then(registration => {
-                        console.log('AdhanApp: Service Worker registered successfully with scope:', registration.scope);
-                    })
-                    .catch(error => {
-                        console.error('AdhanApp: Service Worker registration failed:', error);
-                    });
-            });
-        } else {
-            console.log('AdhanApp: Service Worker not supported in this browser.');
-        }
-
         // Add event listeners
         this.setupEventListeners();
 
@@ -342,49 +330,39 @@ class AdhanApp {
         });
 
         // Location search
-        this.elements.searchLocationBtn.addEventListener('click', () => this.searchLocation());
-        this.elements.locationSearch.addEventListener('keyup', (e) => {
-            console.log(`AdhanApp: locationSearch keyup - Key: "${e.key}"`);
+        if (this.elements.locationSearch) {
+            this.elements.locationSearch.addEventListener('keyup', (e) => {
+                console.log(`[LocationSearch KeyUp] Touche pressée: ${e.key}`); // LOG NOUVEAU
 
-            // Si la touche Entrée est pressée, lance la recherche immédiatement
-            if (e.key === 'Enter') {
-                console.log("AdhanApp: locationSearch keyup - Enter pressed.");
-                clearTimeout(this.state.searchTimeout); // Annule le timeout précédent s'il y en a un
-                this.searchLocation();
-                return;
-            }
-
-            // Ignore les touches qui ne modifient pas le texte (flèches, Shift, Ctrl, etc.)
-            // sauf pour Backspace et Delete qui doivent déclencher une recherche.
-            // Les touches fléchées sont aussi gérées pour la navigation dans les résultats, ne devraient pas relancer une recherche ici.
-            if (e.key.length > 1 && e.key !== 'Backspace' && e.key !== 'Delete' && !e.key.startsWith('Arrow')) {
-                console.log(`AdhanApp: locationSearch keyup - Ignoring non-text modifying key: "${e.key}"`);
-                return;
-            }
-
-            // Si la query est vide après un backspace/delete, on ne lance pas de recherche mais on vide les résultats
-            const query = this.elements.locationSearch.value.trim();
-            if (!query && (e.key === 'Backspace' || e.key === 'Delete')) {
-                console.log("AdhanApp: locationSearch keyup - Query is empty after backspace/delete. Clearing results and timeout.");
-                clearTimeout(this.state.searchTimeout);
-                if (this.elements.searchResults) {
-                    this.elements.searchResults.innerHTML = '';
-                    this.elements.searchResults.style.display = 'none';
+                if (e.key === 'Enter') {
+                    clearTimeout(this.state.searchTimeout);
+                    console.log("[LocationSearch KeyUp] 'Enter' détecté, appel direct de searchLocation()."); // LOG NOUVEAU
+                    this.searchLocation();
+                    return;
                 }
-                return;
-            }
+                if (e.key.length > 1 && e.key !== 'Backspace' && e.key !== 'Delete' && !e.key.startsWith('Arrow')) {
+                    return;
+                }
+                const query = this.elements.locationSearch.value.trim();
+                if (!query && (e.key === 'Backspace' || e.key === 'Delete')) {
+                    clearTimeout(this.state.searchTimeout);
+                    console.log("[LocationSearch KeyUp] Requête vide et Backspace/Delete, nettoyage du timeout et des résultats."); // LOG NOUVEAU
+                    if (this.elements.searchResults) {
+                        this.elements.searchResults.innerHTML = '';
+                        this.elements.searchResults.style.display = 'none';
+                    }
+                    return;
+                }
 
-            // Annule le timeout précédent s'il y en a un
-            clearTimeout(this.state.searchTimeout);
-            console.log("AdhanApp: locationSearch keyup - Previous timeout cleared.");
+                console.log("[LocationSearch KeyUp] Annulation du timeout précédent (s'il existe)."); // LOG NOUVEAU
+                clearTimeout(this.state.searchTimeout);
 
-            // Définit un nouveau timeout pour lancer la recherche après 500ms
-            console.log("AdhanApp: locationSearch keyup - Setting new timeout for searchLocation.");
-            this.state.searchTimeout = setTimeout(() => {
-                console.log("AdhanApp: locationSearch keyup - Timeout expired, calling searchLocation.");
-                this.searchLocation();
-            }, 500); // Délai de 500ms
-        });
+                this.state.searchTimeout = setTimeout(() => {
+                    console.log("[LocationSearch KeyUp] Délai de 1000ms expiré. APPEL DE SEARCHLOCATION MAINTENANT."); // LOG NOUVEAU
+                    this.searchLocation();
+                }, 1000); // Votre délai de 1000ms
+            });
+        }
 
         // Notification modal
         this.elements.allowNotificationsBtn.addEventListener('click', () => {
@@ -471,6 +449,29 @@ class AdhanApp {
                 }
             }
         });
+
+        // --- ÉCOUTEURS POUR L'ARRÊT DU SON DE L'ADHAN ---
+        // Bouton "Stop sound"
+        if (this.elements.stopAdhanSoundBtn && this.elements.adhanAudio) {
+            this.elements.stopAdhanSoundBtn.addEventListener('click', () => {
+                this.elements.adhanAudio.pause();
+                this.elements.adhanAudio.currentTime = 0;
+                this.elements.stopAdhanSoundBtn.style.display = 'none';
+                this.state.adhanPlaying = false;
+                console.log("[AdhanApp] Adhan arrêté par l'utilisateur via stopAdhanSoundBtn.");
+            });
+        }
+
+        // Lorsque l'Adhan se termine naturellement
+        if (this.elements.adhanAudio) {
+            this.elements.adhanAudio.addEventListener('ended', () => {
+                if (this.elements.stopAdhanSoundBtn) {
+                    this.elements.stopAdhanSoundBtn.style.display = 'none';
+                }
+                this.state.adhanPlaying = false;
+                console.log("[AdhanApp] Adhan terminé naturellement, stopAdhanSoundBtn masqué.");
+            });
+        }
     }
 
     /**
@@ -1532,10 +1533,22 @@ class AdhanApp {
 
         // Play the Adhan
         audioElement.play()
+            .then(() => {
+                console.log("[AdhanApp Debug] playAdhan - Audio a commencé à jouer avec succès.");
+                if (this.elements.stopAdhanSoundBtn) { // Cibler le nouveau bouton
+                    this.elements.stopAdhanSoundBtn.style.display = 'flex'; // 'flex' pour correspondre au CSS pour le centrage
+                    console.log("[AdhanApp Debug] playAdhan - Bouton stopAdhanSoundBtn affiché.");
+                } else {
+                    console.warn("[AdhanApp Debug] playAdhan - stopAdhanSoundBtn non trouvé pour affichage après lecture.");
+                }
+                this.state.adhanPlaying = true;
+            })
             .catch(error => {
-                console.error('Error playing Adhan:', error);
-                // Show visual notification if audio failed
-                this.showVisualNotification(prayer);
+                console.error("[AdhanApp Debug] playAdhan - ERREUR lors de la tentative de lecture de l'audio:", error);
+                if (this.elements.stopAdhanSoundBtn) { // Cibler le nouveau bouton
+                    this.elements.stopAdhanSoundBtn.style.display = 'none';
+                }
+                this.state.adhanPlaying = false;
             });
     }
 

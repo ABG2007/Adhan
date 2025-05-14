@@ -22,33 +22,8 @@
   ],
   "orientation": "portrait",
   "lang": "fr-FR",
-  "categories": [
-    "religious",
-    "utilities"
-  ],
-  "screenshots": [
-    {
-      "src": "assets/screenshots/screenshot11.png",
-      "sizes": "1085x1905",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Affichage des horaires de prière et de la prochaine prière"
-    },
-    {
-      "src": "assets/screenshots/screenshot22.png",
-      "sizes": "1085x1905",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Recherche de mosquées à proximité de votre position"
-    },
-    {
-      "src": "assets/screenshots/screenshot33.png",
-      "sizes": "1085x1905",
-      "type": "image/png",
-      "form_factor": "narrow",
-      "label": "Paramètres de l'application"
-    }
-  ],
+  "categories": ["religious", "utilities"],
+  "screenshots": [],
   "shortcuts": [
     {
       "name": "Paramètres",
