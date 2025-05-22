@@ -1,0 +1,39 @@
+{
+  "name": "Adhan - Heures de Prière",
+  "short_name": "Adhan",
+  "description": "Application d'heures de prière (Adhan) pour les musulmans",
+  "start_url": "/index.html",
+  "display": "standalone",
+  "background_color": "#4CAF50",
+  "theme_color": "#4CAF50",
+  "icons": [
+    {
+      "src": "assets/images/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "assets/images/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "orientation": "portrait",
+  "lang": "fr-FR",
+  "categories": ["religious", "utilities"],
+  "screenshots": [],
+  "shortcuts": [
+    {
+      "name": "Paramètres",
+      "url": "/index.html?action=settings",
+      "icons": [
+        {
+          "src": "assets/images/settings-icon.png",
+          "sizes": "96x96"
+        }
+      ]
+    }
+  ]
+}

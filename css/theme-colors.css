@@ -1,0 +1,129 @@
+/* 
+ * Styles pour les thèmes de couleur
+ */
+
+/* Variables CSS pour chaque thème */
+:root {
+    /* Thème vert (par défaut) */
+    --header-bg: #4CAF50;
+    --primary-color: #4CAF50;
+    --primary-light: #81C784;
+    --primary-dark: #388E3C;
+    --active-prayer: #E8F5E9;
+    --active-shadow: rgba(76, 175, 80, 0.7);
+}
+
+/* Thème bleu */
+.blue-theme {
+    --header-bg: #2196F3;
+    --primary-color: #2196F3;
+    --primary-light: #64B5F6;
+    --primary-dark: #1976D2;
+    --active-prayer: #E3F2FD;
+    --active-shadow: rgba(33, 150, 243, 0.7);
+}
+
+/* Thème grenat */
+.crimson-theme {
+    --header-bg: #D32F2F;
+    --primary-color: #D32F2F;
+    --primary-light: #E57373;
+    --primary-dark: #B71C1C;
+    --active-prayer: #FFEBEE;
+    --active-shadow: rgba(211, 47, 47, 0.7);
+}
+
+/* Thème orange */
+.orange-theme {
+    --header-bg: #FF9800;
+    --primary-color: #FF9800;
+    --primary-light: #FFB74D;
+    --primary-dark: #F57C00;
+    --active-prayer: #FFF3E0;
+    --active-shadow: rgba(255, 152, 0, 0.7);
+}
+
+/* Thème rose */
+.pink-theme {
+    --header-bg: #E91E63;
+    --primary-color: #E91E63;
+    --primary-light: #F48FB1;
+    --primary-dark: #C2185B;
+    --active-prayer: #FCE4EC;
+    --active-shadow: rgba(233, 30, 99, 0.7);
+}
+
+/* Thème violet */
+.purple-theme {
+    --header-bg: #9C27B0;
+    --primary-color: #9C27B0;
+    --primary-light: #CE93D8;
+    --primary-dark: #7B1FA2;
+    --active-prayer: #F3E5F5;
+    --active-shadow: rgba(156, 39, 176, 0.7);
+}
+
+/* Thème émeraude */
+.emerald-theme {
+    --header-bg: #009688;
+    --primary-color: #009688;
+    --primary-light: #4DB6AC;
+    --primary-dark: #00796B;
+    --active-prayer: #E0F2F1;
+    --active-shadow: rgba(0, 150, 136, 0.7);
+}
+
+/* Styles pour le sélecteur de couleurs dans les paramètres */
+.color-theme-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.color-option {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    border: 2px solid transparent;
+}
+
+.color-option:hover {
+    transform: scale(1.1);
+}
+
+.color-option.active {
+    border: 2px solid var(--text-primary);
+    box-shadow: 0 0 0 2px white, 0 0 0 3px var(--text-primary);
+}
+
+/* Couleurs des thèmes */
+.color-green {
+    background-color: #4CAF50; /* Vert - thème actuel */
+}
+
+.color-blue {
+    background-color: #2196F3; /* Bleu */
+}
+
+.color-crimson {
+    background-color: #D32F2F; /* Grenat */
+}
+
+.color-orange {
+    background-color: #FF9800; /* Orange */
+}
+
+.color-pink {
+    background-color: #E91E63; /* Rose */
+}
+
+.color-purple {
+    background-color: #9C27B0; /* Violet */
+}
+
+.color-emerald {
+    background-color: #009688; /* Émeraude */
+}

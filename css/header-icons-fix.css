@@ -1,0 +1,68 @@
+/* 
+ * Solution simple pour l'alignement des icônes d'en-tête
+ */
+
+/* Style de base pour l'en-tête */
+header {
+    display: flex !important;
+    justify-content: space-between !important;
+    align-items: center !important;
+    padding: 0.5rem 1rem !important;
+    flex-wrap: nowrap !important;
+}
+
+/* Style du logo - lui donner plus d'espace */
+.logo {
+    display: flex !important;
+    align-items: center !important;
+    flex: 3 !important; /* Donne 3x plus d'espace au logo */
+    min-width: 0 !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+}
+
+.logo h1 {
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    font-size: 1.25rem !important;
+}
+
+/* Container des boutons d'action - réduire son espace */
+.header-actions {
+    display: flex !important;
+    flex-direction: row !important;
+    align-items: center !important;
+    gap: 8px !important;
+    position: static !important;
+    transform: none !important;
+    flex: 1 !important; /* Prend moins d'espace que le logo */
+    justify-content: flex-end !important;
+    margin-left: 10px !important;
+}
+
+/* Assurez-vous que tous les boutons sont visibles mais compacts */
+#languageToggle, #themeToggle, #settingsBtn {
+    display: inline-flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    padding: 0.35rem !important;
+}
+
+/* Style pour le conteneur du sélecteur de langue */
+.language-selector-container {
+    position: relative;
+    display: flex !important;
+    align-items: center !important;
+}
+
+/* Ajustements responsifs */
+@media (max-width: 480px) {
+    .header-actions {
+        gap: 4px !important;
+    }
+    
+    #languageToggle, #themeToggle, #settingsBtn {
+        padding: 0.25rem !important;
+    }
+}

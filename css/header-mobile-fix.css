@@ -1,0 +1,86 @@
+/* 
+ * Correctifs pour l'affichage des icônes de l'en-tête 
+ */
+
+/* Alignement des éléments d'en-tête pour tous les écrans */
+header {
+    padding: var(--spacing-sm);
+    justify-content: space-between;
+    position: relative;
+}
+
+/* Réorganisation du logo pour qu'il prenne moins d'espace */
+.logo {
+    flex-shrink: 1;
+    min-width: 0;
+    /* Empêcher que le logo pousse les boutons hors de la vue */
+    max-width: 50%;
+}
+
+.logo h1 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* Styles principaux des actions d'en-tête */
+.header-actions {
+    display: flex;
+    justify-content: flex-end; /* Aligner à droite */
+    align-items: center;
+    gap: 8px; /* Espace entre les boutons */
+    margin-left: auto; /* Pousser à droite */
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Optimisations pour mobile */
+@media (max-width: 480px) {
+    /* Réduire la taille du logo et du titre */
+    .logo h1 {
+        font-size: 1rem;
+    }
+    
+    .header-logo-img {
+        width: 24px;
+        height: 24px;
+    }
+    
+    /* Ajustements pour les petits écrans */
+    .header-actions {
+        gap: 6px; /* Réduire l'espace entre les boutons */
+    }
+    
+    /* Réduire légèrement la taille des boutons sur mobile */
+    .header-actions button {
+        padding: 6px;
+        font-size: 0.9rem;
+    }
+    
+    /* Contenir la langue dans un espace fixe */
+    #languageToggle .current-lang {
+        display: inline-block;
+        width: 24px;
+        text-align: center;
+        font-size: 0.75rem;
+    }
+}
+
+/* Sur les très petits écrans, optimiser davantage l'espace */
+@media (max-width: 360px) {
+    .header-actions {
+        gap: 4px;
+    }
+    
+    .header-actions button {
+        padding: 4px;
+    }
+    
+    /* Ajuster le titre pour qu'il ne chevauche pas les boutons */
+    .logo h1 {
+        font-size: 0.9rem;
+        max-width: 120px;
+    }
+}

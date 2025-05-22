@@ -1,0 +1,31 @@
+/* 
+ * Fix pour les éléments d'en-tête en mode RTL
+ * Empêche les éléments de l'en-tête de se déplacer vers la gauche en mode arabe (RTL)
+ */
+
+/* Maintenir la direction de l'en-tête en LTR même en mode RTL */
+html[dir="rtl"] header {
+    direction: ltr;
+}
+
+/* Assurer que les actions de l'en-tête restent à droite */
+html[dir="rtl"] .header-actions {
+    direction: ltr;
+}
+
+/* Assurer que le logo reste à gauche */
+html[dir="rtl"] .logo {
+    direction: ltr;
+}
+
+/* Fix spécifique pour le sélecteur de langue */
+html[dir="rtl"] .language-selector-container {
+    direction: ltr;
+}
+
+/* S'assurer que le menu déroulant s'affiche correctement */
+html[dir="rtl"] .language-dropdown {
+    direction: ltr;
+    right: 0;
+    left: auto;
+}

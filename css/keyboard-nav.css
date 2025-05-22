@@ -1,0 +1,37 @@
+/* 
+ * Styles pour la navigation clavier dans les résultats de recherche de localisation
+ */
+
+/* Style pour l'élément actuellement sélectionné */
+.search-result-item.active-result {
+    background-color: var(--primary-color);
+    color: white;
+    border-left: 3px solid var(--accent-color);
+    padding-left: calc(var(--spacing-sm) - 3px);
+    outline: none; /* Enlever l'outline du focus par défaut */
+}
+
+/* Style en thème sombre */
+.dark-theme .search-result-item.active-result {
+    background-color: var(--primary-dark);
+    border-left-color: var(--accent-color);
+}
+
+/* Amélioration de l'accessibilité pour la navigation clavier */
+.search-result-item:focus {
+    outline: 2px solid var(--primary-color);
+}
+
+.dark-theme .search-result-item:focus {
+    outline-color: var(--primary-light);
+}
+
+/* Style au survol pour cohérence avec la sélection clavier */
+.search-result-item:hover {
+    background-color: rgba(76, 175, 80, 0.2);
+    cursor: pointer;
+}
+
+.dark-theme .search-result-item:hover {
+    background-color: rgba(129, 199, 132, 0.2);
+}

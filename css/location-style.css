@@ -1,0 +1,131 @@
+/* 
+ * Styles pour la mise en valeur de la localisation
+ */
+
+/* Agrandir et mettre en gras le texte de localisation */
+#locationText {
+    font-size: 1.2rem; /* Taille de police plus grande */
+    font-weight: 700; /* Police en gras */
+    color: var(--primary-color); /* Couleur principale pour plus de visibilité */
+}
+
+/* Augmenter légèrement la taille de l'icône de localisation pour l'équilibre */
+.location i {
+    font-size: 1.2rem; 
+}
+
+/* Augmenter l'espacement entre l'icône et le texte */
+.location {
+    gap: var(--spacing-md);
+}
+
+/* Style pour le mode sombre */
+.dark-theme #locationText {
+    color: var(--primary-light); /* Couleur plus claire en mode sombre */
+}
+
+/* Styles for Geosearch in Location Modal */
+#locationSearchGeosearchContainer {
+    width: 100%; /* Ensure it takes full width of its parent in the modal */
+    display: flex; /* Helps in case the child control needs flex context */
+    align-items: center;
+}
+
+#locationSearchGeosearchContainer .geosearch.leaflet-bar {
+    box-shadow: none; /* Remove default shadow if it doesn't fit */
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius-md);
+    width: 100%; /* Make the control itself take full width */
+    display: flex; /* Ensure form and icon align nicely */
+    background-color: var(--background-color-secondary); /* Add a background to the bar */
+}
+
+#locationSearchGeosearchContainer .geosearch.leaflet-bar form {
+    flex-grow: 1; /* Allow form to take available space */
+    display: flex;
+}
+
+#locationSearchGeosearchContainer .geosearch.leaflet-bar input[type="text"] {
+    width: 100%; /* Input takes full width of the form */
+    height: 40px;
+    border: none;
+    padding: 0 var(--spacing-md);
+    font-size: 1rem;
+    color: var(--text-color);
+    background-color: transparent; /* Make input background transparent to use bar's background */
+    outline: none; /* Remove default focus outline if desired */
+    border-radius: var(--border-radius-md) 0 0 var(--border-radius-md); /* Match bar rounding */
+}
+
+#locationSearchGeosearchContainer .geosearch.leaflet-bar .glass {
+    width: 40px; /* Increased width for better clickability */
+    height: 40px;
+    border-left: 1px solid var(--border-color);
+    background-position: center;
+    cursor: pointer;
+    border-radius: 0 var(--border-radius-md) var(--border-radius-md) 0; /* Match bar rounding */
+}
+
+#locationSearchGeosearchContainer .geosearch.leaflet-bar .clear {
+    /* Styles for the clear button if/when it appears */
+    width: 40px;
+    height: 40px;
+    background-position: center;
+    cursor: pointer;
+}
+
+#locationSearchGeosearchContainer .geosearch .results {
+    background-color: var(--background-color-secondary);
+    border: 1px solid var(--border-color);
+    border-top: none;
+    border-radius: 0 0 var(--border-radius-md) var(--border-radius-md);
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+#locationSearchGeosearchContainer .geosearch .results > div {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color-light);
+}
+
+#locationSearchGeosearchContainer .geosearch .results > div:last-child {
+    border-bottom: none;
+}
+
+#locationSearchGeosearchContainer .geosearch .results > div.active,
+#locationSearchGeosearchContainer .geosearch .results > div:hover {
+    background-color: var(--primary-color-translucent);
+    color: var(--primary-color);
+}
+
+/* Dark theme adjustments for geosearch */
+.dark-theme #locationSearchGeosearchContainer .geosearch.leaflet-bar {
+    border: 1px solid var(--border-color-dark);
+    background-color: var(--background-color-secondary-dark);
+}
+
+.dark-theme #locationSearchGeosearchContainer .geosearch.leaflet-bar input[type="text"] {
+    color: var(--text-color-dark);
+    background-color: transparent;
+}
+
+.dark-theme #locationSearchGeosearchContainer .geosearch.leaflet-bar .glass {
+    border-left: 1px solid var(--border-color-dark);
+}
+
+.dark-theme #locationSearchGeosearchContainer .geosearch .results {
+    background-color: var(--background-color-secondary-dark);
+    border: 1px solid var(--border-color-dark);
+    border-top: none;
+}
+
+.dark-theme #locationSearchGeosearchContainer .geosearch .results > div {
+    border-bottom: 1px solid var(--border-color-light-dark);
+}
+
+.dark-theme #locationSearchGeosearchContainer .geosearch .results > div.active,
+.dark-theme #locationSearchGeosearchContainer .geosearch .results > div:hover {
+    background-color: var(--primary-color-translucent-dark);
+    color: var(--primary-light);
+}

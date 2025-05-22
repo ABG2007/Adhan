@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mosquées à Proximité - Adhan</title>
+
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+
+    <!-- Leaflet Geosearch CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-geosearch@3.11.0/dist/geosearch.css" />
+
+    <!-- General Styles ( Reuse from main app if possible or create specific ones) -->
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/theme-colors.css">
+
+    <!-- Mosque Page Specific Styles -->
+    <link rel="stylesheet" href="css/mosques-page.css">
+
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="assets/images/icon-192x192.png">
+
+</head>
+
+<body class=""> <!-- Add theme class dynamically -->
+    <div class="app-container mosques-page-container">
+        <header class="mosques-header">
+            <a href="index.html" class="back-button" data-translate-attr="aria-label,mosques.backButtonLabel" aria-label="Retour à l'accueil">
+                <i class="fas fa-arrow-left"></i>
+            </a>
+            <h1 id="mosquesPageTitle" data-translate="mosques.title">Mosquées à Proximité</h1>
+            <!-- Optional: Add theme/settings icons if needed -->
+        </header>
+        <!-- Barre de recherche mobile personnalisée (affichée uniquement sur mobile) -->
+        <div id="mobileSearchBar" class="mobile-search-bar" style="display:none;">
+            <input type="text" id="mobileSearchInput" placeholder="Rechercher une adresse ou un lieu..." />
+            <button id="mobileSearchBtn">🔍</button>
+            <button id="mobileLocateBtn" title="Ma position">📍</button>
+        </div>
+
+        <main>
+            <div id="mapContainer">
+                <div id="map"></div>
+                <div class="map-controls">
+                    <button id="useCurrentLocationBtn" data-translate-attr="title,mosques.useCurrentLocationTitle" title="Utiliser ma position actuelle">
+                        <i class="fas fa-location-arrow"></i>
+                    </button>
+                    <label for="radiusSelect" id="radiusLabel" data-translate="mosques.radius">Rayon:</label>
+                    <select id="radiusSelect">
+                        <option value="1000">1 km</option>
+                        <option value="2000">2 km</option>
+                        <option value="3000" selected>3 km</option>
+                        <option value="5000">5 km</option>
+                        <option value="10000">10 km</option>
+                    </select>
+                    <button id="recenterMapBtn" data-translate-attr="title,mosques.recenterMapTitle" title="Recentrer sur ma position">
+                        <i class="fas fa-crosshairs"></i>
+                    </button>
+                </div>
+                <div id="mapLoadingIndicator" class="loading-indicator">
+                    <div class="loader"></div> <span id="mapLoadingText">Recherche de votre position...</span>
+                </div>
+            </div>
+
+            <div id="resultsContainer">
+                <h2 id="resultsTitle"><span data-translate="mosques.results">Résultats</span> <span id="resultsCount"></span></h2>
+                <div id="mosquesList" class="mosques-results-grid">
+                    <!-- Mosque cards will be loaded here -->
+                    <p id="resultsPlaceholder" data-translate="mosques.resultsPlaceholder">Sélectionnez un rayon pour trouver les mosquées.</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+    <!-- Leaflet Geosearch JS -->
+    <script src="https://unpkg.com/leaflet-geosearch@3.11.0/dist/geosearch.umd.js"></script>
+
+    <!-- Translations (Needed for dynamic text) -->
+    <script src="js/translations.js"></script>
+
+    <!-- Mosque Page Specific Script -->
+    <script src="js/mosques-page.js"></script>
+
+    <!-- Script to apply theme from localStorage -->
+    <script>
+        // Apply theme immediately
+        const savedAdhanTheme = localStorage.getItem('adhan_theme') || 'light';
+        if (savedAdhanTheme === 'dark') {
+            document.body.classList.add('dark-theme');
+        } else {
+            document.body.classList.remove('dark-theme'); // Ensure light if not dark
+        }
+
+        // Apply color theme immediately
+        const savedAdhanColorTheme = localStorage.getItem('adhan_color_theme') || 'green';
+        const validColorThemes = ['green', 'blue', 'crimson', 'orange', 'pink', 'purple', 'emerald'];
+
+        // Remove any existing color theme classes from root
+        validColorThemes.forEach(themeName => {
+            // 'green' is default, no specific class like 'green-theme' is added by the main script for it.
+            // The main script removes 'blue-theme', 'crimson-theme', etc. when switching to green.
+            // So, we only need to remove non-green themes here.
+            if (themeName !== 'green') {
+                document.documentElement.classList.remove(`${themeName}-theme`);
+            }
+        });
+
+        // Add the new color theme class to root if it's not green and is a valid theme
+        if (savedAdhanColorTheme !== 'green' && validColorThemes.includes(savedAdhanColorTheme)) {
+            document.documentElement.classList.add(`${savedAdhanColorTheme}-theme`);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,611 @@
+/* Styles for Mosques Page - Minimal Layout */
+
+html {
+    overflow-y: auto;
+    /* Ensure HTML is the scroll container */
+}
+
+html,
+body {
+    background-color: var(--bg-color);
+    /* Remove height: 100%; let content dictate height */
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    /* Prevent horizontal scroll */
+}
+
+.mosques-page-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+    /* Take at least full viewport height */
+}
+
+.mosques-header {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    background-color: var(--header-bg);
+    color: #FFFFFF;
+    flex-shrink: 0;
+    /* Prevent header from shrinking */
+    position: sticky;
+    /* Keep header sticky */
+    top: 0;
+    z-index: 1001;
+    flex-grow: 1;
+    /* Allow main content to fill remaining space */
+    display: flex;
+    flex-direction: column;
+    /* Remove overflow: hidden; let content dictate height */
+}
+
+.back-button {
+    color: #FFFFFF;
+    font-size: 1.2em;
+    margin-right: 15px;
+    text-decoration: none;
+}
+
+.mosques-header h1 {
+    margin: 0;
+    font-size: 1.3em;
+    flex-grow: 1;
+    color: #FFFFFF;
+    /* Ensure title is pure white */
+}
+
+.mosques-page-container>main {
+    flex-grow: 1;
+    /* Allow main content to fill remaining space */
+    display: flex;
+    flex-direction: column;
+    /* Remove overflow: hidden; let body handle scrolling */
+}
+
+#mapContainer {
+    position: relative;
+    width: 100%;
+    height: 50vh;
+    /* Give map a fixed percentage height */
+    min-height: 300px;
+    /* Minimum pixel height */
+    flex-shrink: 0;
+    /* Prevent map container from shrinking */
+}
+
+#map {
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+/* Keep basic map controls positioning */
+.map-controls {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 1000;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    /* Apply theme variables to controls */
+    background-color: var(--card-bg-color-transparent, rgba(255, 255, 255, 0.8));
+    border-radius: var(--border-radius, 4px);
+}
+
+/* Style map control buttons/select like app inputs */
+.map-controls label {
+    font-size: 0.9em;
+    color: var(--text-color);
+    margin-right: 5px;
+    /* Add some spacing */
+}
+
+.map-controls select,
+.map-controls button {
+    padding: 8px 12px;
+    /* Consistent padding with primary buttons */
+    border: 1px solid var(--input-border-color, #ccc);
+    border-radius: var(--button-border-radius, 4px);
+    /* Use button radius variable if exists */
+    background-color: var(--input-bg-color, white);
+    color: var(--text-color);
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+    line-height: 1.2;
+    /* Ensure text vertical alignment */
+}
+
+.map-controls button {
+    /* Specific style for icon button if needed */
+    padding: 8px;
+    /* Icon buttons might need square padding */
+}
+
+.map-controls button i {
+    font-size: 1.1em;
+    /* Adjust icon size if needed */
+}
+
+.map-controls button:hover,
+.map-controls select:hover {
+    /* Use an even darker gray hover color */
+    background-color: var(--hover-bg-color, #cccccc);
+}
+
+/* Style Geosearch input like app inputs */
+.leaflet-control-geosearch.bar form input {
+    border: 1px solid var(--input-border-color, #ccc);
+    border-radius: var(--input-border-radius, 4px);
+    /* Use input radius variable if exists */
+    background-color: var(--input-bg-color, white);
+    color: var(--text-color);
+    padding: 8px 12px;
+    /* Match other inputs/buttons */
+    height: auto;
+    /* Let padding define height */
+    line-height: 1.2;
+    /* Match other inputs */
+    box-shadow: none;
+    /* Remove inner shadow if any */
+    font-size: 0.9em;
+    /* Match other controls */
+}
+
+/* Style Geosearch submit button */
+.leaflet-control-geosearch.bar form button.glass {
+    border: 1px solid var(--input-border-color, #ccc);
+    border-left: none;
+    /* Usually attached to input */
+    border-radius: 0 var(--button-border-radius, 4px) var(--button-border-radius, 4px) 0;
+    /* Match button radius */
+    background-color: var(--input-bg-color, white);
+    color: var(--text-color);
+    padding: 8px 10px;
+    /* Adjust padding for icon */
+    cursor: pointer;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+
+.leaflet-control-geosearch.bar form button.glass:hover {
+    /* Use an even darker gray hover color */
+    background-color: var(--hover-bg-color, #cccccc);
+    border-color: var(--input-border-hover-color, #aaa);
+}
+
+/* Style Geosearch results dropdown */
+.leaflet-control-geosearch.bar .results {
+    background: var(--card-bg-color);
+    border: 1px solid var(--input-border-color, #ccc);
+    box-shadow: var(--shadow-md, 0 4px 6px rgba(0, 0, 0, 0.1));
+    border-radius: 0 0 var(--border-radius, 4px) var(--border-radius, 4px);
+    margin-top: -1px;
+}
+
+.leaflet-control-geosearch.bar .results>* {
+    padding: 8px 12px;
+    color: var(--text-color);
+    border-bottom: 1px solid var(--border-color, #eee);
+}
+
+.leaflet-control-geosearch.bar .results>*:last-child {
+    border-bottom: none;
+}
+
+.leaflet-control-geosearch.bar .results>*:hover {
+    background-color: var(--hover-bg-color, #f0f0f0);
+}
+
+/* Loading Indicator */
+#mapLoadingIndicator {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(255, 255, 255, 0.7);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+    color: #333;
+    font-size: 1.1em;
+    display: none;
+}
+
+#mapLoadingIndicator .loader {
+    margin-right: 10px;
+    /* Use loader style from style.css */
+}
+
+/* Results Area */
+#resultsContainer {
+    padding: 15px;
+    /* Remove flex-grow: 1; and overflow-y: auto; */
+    background-color: var(--bg-color);
+    /* Ensure background matches theme */
+}
+
+#resultsContainer h2 {
+    margin-top: 0;
+    margin-bottom: 15px;
+    font-size: 1.2em;
+    color: var(--text-color);
+}
+
+.mosques-results-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 15px;
+}
+
+/* Harmonize Mosque Card with Prayer Card */
+.mosque-card {
+    background-color: var(--background-card);
+    border-radius: var(--card-border-radius, 8px);
+    padding: 15px;
+    /* Apply a standard, slightly stronger grey shadow */
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border: 1px solid var(--card-border-color, transparent);
+    transition: box-shadow 0.2s ease;
+}
+
+.mosque-card:hover {
+    /* Apply a slightly more pronounced shadow on hover */
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Keep text styles within card */
+.mosque-card-name {
+    color: var(--text-color-strong, var(--text-color));
+    /* Fallback to default text color */
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.mosque-card-distance,
+.mosque-card-address {
+    font-size: 0.9em;
+    color: var(--text-color-light, var(--text-secondary));
+    /* Fallback to secondary text color */
+    margin-bottom: 5px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.mosque-card-address {
+    min-height: 1.2em;
+}
+
+.mosque-card-actions {
+    margin-top: 15px;
+    text-align: right;
+}
+
+/* Style Itinerary as Primary Button */
+.itinerary-btn {
+    /* Use styles consistent with primary button */
+    display: inline-flex;
+    /* To align icon and text */
+    align-items: center;
+    gap: 5px;
+    padding: 8px 12px;
+    /* Consistent padding */
+    border-radius: var(--button-border-radius, 5px);
+    /* Use variable */
+    font-size: 0.9em;
+    text-decoration: none;
+    cursor: pointer;
+    background-color: var(--primary-color);
+    color: var(--primary-btn-text-color, white);
+    border: 1px solid var(--primary-color);
+}
+
+.itinerary-btn:hover {
+    /* Use a hardcoded darker green as --primary-color-dark is not working */
+    background-color: #388E3C;
+    border-color: #388E3C;
+    text-decoration: none;
+    /* Remove underline from general a:hover */
+}
+
+/* Style OSM Link as Secondary/Text Button */
+.osm-link-btn {
+    /* Use styles consistent with secondary/icon button */
+    display: inline-flex;
+    align-items: center;
+    background-color: transparent;
+    color: var(--text-color-light, var(--text-secondary));
+    border: none;
+    padding: 8px;
+    /* Consistent icon button padding */
+    border-radius: var(--button-border-radius, 5px);
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 0.9em;
+}
+
+.osm-link-btn i {
+    font-size: 1.1em;
+    /* Make icon slightly bigger */
+}
+
+.osm-link-btn:hover {
+    /* Change text color and increase background opacity */
+    color: var(--primary-color);
+    background-color: rgba(0, 0, 0, 0.15);
+    text-decoration: none;
+    /* Remove underline from general a:hover */
+}
+
+#resultsPlaceholder {
+    color: var(--text-color-light);
+    font-style: italic;
+    text-align: center;
+    padding: 20px;
+    grid-column: 1 / -1;
+}
+
+/* Minimal Dark Theme Adjustments */
+body.dark-theme .map-controls {
+    background-color: var(--card-bg-color-transparent-dark, rgba(50, 50, 50, 0.8));
+    border: 1px solid var(--input-border-color-dark, #555);
+}
+
+body.dark-theme .map-controls label {
+    color: var(--text-color-dark);
+}
+
+body.dark-theme .map-controls select,
+body.dark-theme .map-controls button {
+    color: var(--text-color-dark);
+    background-color: var(--input-bg-color-dark);
+    border-color: var(--input-border-color-dark);
+}
+
+body.dark-theme .map-controls button:hover {
+    background-color: var(--hover-bg-color-dark);
+}
+
+/* Geosearch Dark Theme */
+body.dark-theme .leaflet-control-geosearch.bar form input {
+    background-color: var(--input-bg-color-dark, #333);
+    color: var(--text-color-dark, #eee);
+    border-color: var(--input-border-color-dark, #555);
+    border-radius: var(--input-border-radius-dark, 4px);
+}
+
+body.dark-theme .leaflet-control-geosearch.bar form button.glass {
+    border-color: var(--input-border-color-dark, #555);
+    background-color: var(--input-bg-color-dark, #333);
+    color: var(--text-color-dark, #bbb);
+    border-radius: 0 var(--button-border-radius-dark, 4px) var(--button-border-radius-dark, 4px) 0;
+}
+
+body.dark-theme .leaflet-control-geosearch.bar form button.glass:hover {
+    background-color: var(--hover-bg-color-dark);
+    border-color: var(--input-border-hover-color-dark, #666);
+}
+
+body.dark-theme .leaflet-control-geosearch.bar .results {
+    background: var(--card-bg-color-dark);
+    border-color: var(--input-border-color-dark, #555);
+    color: var(--text-color-dark);
+    background-color: var(--hover-bg-color-dark);
+}
+
+body.dark-theme .leaflet-control-geosearch.bar .results>* {
+    color: var(--text-color-dark);
+    border-bottom-color: var(--border-color-dark, #444);
+}
+
+body.dark-theme .leaflet-control-geosearch.bar .results>*:hover {
+    background-color: var(--hover-bg-color-dark, #404040);
+}
+
+body.dark-theme #mapLoadingIndicator {
+    background-color: rgba(0, 0, 0, 0.7);
+    color: var(--text-color-dark);
+}
+
+body.dark-theme .osm-link-btn {
+    color: var(--text-color-light-dark, var(--text-secondary-dark));
+}
+
+body.dark-theme .osm-link-btn:hover {
+    color: var(--text-color-dark);
+    background-color: var(--hover-bg-color-dark);
+}
+
+/* Dark theme text colors in cards */
+body.dark-theme .mosque-card-name {
+    color: var(--text-color-strong-dark, var(--text-color-dark));
+}
+
+body.dark-theme .mosque-card-distance,
+body.dark-theme .mosque-card-address {
+    color: var(--text-color-light-dark, var(--text-secondary-dark));
+}
+
+/* Dark theme buttons */
+body.dark-theme .itinerary-btn {
+    background-color: var(--primary-color);
+    /* Keep primary color, adjust if needed */
+    color: var(--primary-btn-text-color-dark, var(--primary-btn-text-color, white));
+    border-color: var(--primary-color);
+}
+
+body.dark-theme .itinerary-btn:hover {
+    background-color: var(--primary-color-light);
+    /* Often lighter in dark theme hover */
+    border-color: var(--primary-color-light);
+}
+
+body.dark-theme .osm-link-btn {
+    color: var(--text-color-light-dark, var(--text-secondary-dark));
+}
+
+body.dark-theme .osm-link-btn:hover {
+    color: var(--text-color-dark);
+    background-color: var(--hover-bg-color-dark);
+}
+
+/* Add styles for the custom user location marker */
+.user-location-marker {
+    /* No default background/border needed for DivIcon using FontAwesome */
+}
+
+.user-location-icon {
+    color: #d9534f;
+    /* Red color for user marker */
+    font-size: 28px;
+    /* Slightly larger */
+    text-align: center;
+    line-height: 30px;
+    /* Center icon vertically */
+    /* Optional: add a small shadow */
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Add styles for mosque icons on map */
+.mosque-marker {
+    /* No default background/border needed for DivIcon using FontAwesome */
+}
+
+.mosque-icon {
+    color: var(--primary-color);
+    /* Use theme color */
+    font-size: 20px;
+    text-align: center;
+    line-height: 24px;
+}
+
+/* Style for highlighted card */
+.mosque-card.highlighted {
+    box-shadow: 0 0 10px 2px var(--primary-color);
+    border: 1px solid var(--primary-color);
+}
+
+.location-search-manual {
+    display: flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    /* Keep button attached */
+    background-color: white;
+}
+
+#manualLocationSearch {
+    border: none;
+    padding: 5px 8px;
+    outline: none;
+    flex-grow: 1;
+}
+
+#manualLocationSearchBtn {
+    border: none;
+    background-color: transparent;
+    padding: 5px 8px;
+    cursor: pointer;
+    color: #555;
+}
+
+#manualLocationSearchBtn:hover {
+    color: #000;
+}
+
+body.dark-theme .location-search-manual {
+    background-color: #444;
+    border-color: #666;
+}
+
+body.dark-theme #manualLocationSearch {
+    background-color: #444;
+    color: #eee;
+}
+
+body.dark-theme #manualLocationSearchBtn {
+    color: #bbb;
+}
+
+body.dark-theme #manualLocationSearchBtn:hover {
+    color: #fff;
+}
+
+/* Correction de la couleur du texte pour l'input du Geosearch */
+#map .leaflet-control-geosearch.leaflet-geosearch-bar.leaflet-control input[type="text"] {
+    color: var(--text-color, #212121) !important; /* Couleur du texte par défaut (fallback si --text-color n'est pas défini) */
+}
+
+/* Correction pour le thème sombre */
+body.dark-theme #map .leaflet-control-geosearch.leaflet-geosearch-bar.leaflet-control input[type="text"] {
+    color: var(--text-color-dark, #E0E0E0) !important; /* Couleur du texte pour le thème sombre (fallback) */
+}
+
+/* Décale la barre de recherche GeoSearch vers le bas */
+.leaflet-control.geosearch {
+    top: 70px !important;
+    left: 10px !important;
+    right: auto !important;
+    position: absolute !important;
+    z-index: 1000;
+    width: calc(100% - 20px);
+    max-width: 350px;
+}
+
+/* Barre de recherche mobile personnalisée - version sous le header */
+.mobile-search-bar {
+  display: flex;
+  gap: 8px;
+  padding: 10px;
+  background: var(--card-bg-color, #fff);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  position: static;
+  margin: 10px 10px 0 10px;
+  z-index: 1100;
+}
+.mobile-search-bar input {
+  flex: 1;
+  padding: 8px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+}
+.mobile-search-bar button {
+  padding: 8px 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  background: #f5f5f5;
+  cursor: pointer;
+}
+@media (max-width: 600px) {
+  .leaflet-control.geosearch,
+  .map-controls {
+    display: none !important;
+  }
+}
+
+#mobileSearchResults {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 100%;
+  margin-top: 2px;
+  background: #fff;
+  z-index: 1200;
+  border-radius: 0 0 8px 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+.mobile-search-bar {
+  position: relative;
+}

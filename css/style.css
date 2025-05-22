@@ -1,0 +1,1186 @@
+/* 
+ * AdhanApp Styles
+ * A responsive Islamic prayer times web application
+ */
+
+/* Base & Reset Styles */
+:root {
+    /* Light Theme Colors (Default) */
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --primary-light: #C8E6C9;
+    --accent-color: #FF9800;
+    --text-primary: #212121;
+    --text-secondary: #757575;
+    --divider-color: #BDBDBD;
+    --background-main: #FFFFFF;
+    --background-card: #F5F5F5;
+    --background-modal: #FFFFFF;
+    --shadow-color: rgba(0, 0, 0, 0.1);
+    --active-prayer: #E8F5E9;
+    --next-prayer-bg: var(--primary-color);
+    /* Couleur de la carte prochaine prière */
+    --header-bg: var(--primary-color);
+    /* Couleur du header */
+    --icon-background: var(--primary-light);
+    /* Fond des icônes de prière - vert clair */
+    --icon-sun-bg: var(--primary-light);
+    /* Fond des icônes de prières de jour */
+    --icon-moon-bg: var(--primary-light);
+    /* Fond des icônes de prières de nuit */
+
+    /* Variables manquantes pour la surbrillance des résultats de recherche */
+    --hover-background-color: #e0e0e0; /* Gris clair pour le survol/actif en thème clair */
+    --text-color-strong: var(--primary-dark); /* Couleur de texte plus foncée pour le survol/actif */
+
+    /* Font Sizes */
+    --font-xs: 0.75rem;
+    /* 12px */
+    --font-sm: 0.875rem;
+    /* 14px */
+    --font-md: 1rem;
+    /* 16px */
+    --font-lg: 1.25rem;
+    /* 20px */
+    --font-xl: 1.5rem;
+    /* 24px */
+    --font-xxl: 2rem;
+    /* 32px */
+
+    /* Spacing */
+    --spacing-xs: 0.25rem;
+    /* 4px */
+    --spacing-sm: 0.5rem;
+    /* 8px */
+    --spacing-md: 1rem;
+    /* 16px */
+    --spacing-lg: 1.5rem;
+    /* 24px */
+    --spacing-xl: 2rem;
+    /* 32px */
+
+    /* Border Radius */
+    --radius-sm: 4px;
+    --radius-md: 8px;
+    --radius-lg: 16px;
+    --radius-round: 50%;
+}
+
+.dark-theme {
+    --primary-color: #81C784;
+    --primary-dark: #4CAF50;
+    --primary-light: #388E3C;
+    --accent-color: #FFB74D;
+    --text-primary: #E0E0E0;
+    --text-secondary: #BDBDBD;
+    --divider-color: #424242;
+    --background-main: #0A1929;
+    /* Fond bleu nuit plus profond */
+    --background-card: #132F4C;
+    /* Teinte bleu nuit pour les cartes */
+    --background-modal: #132F4C;
+    /* Harmoniser avec les cartes */
+    --shadow-color: rgba(0, 0, 30, 0.5);
+    /* Ombre plus bleue et plus prononcée */
+    --active-prayer: #0E3746;
+    /* Version bleu nuit de l'indicateur de prière active */
+    --next-prayer-bg: #1A4173;
+    /* Bleu plus clair pour la carte prochaine prière */
+    --header-bg: #1A4173;
+    /* Bleu plus clair pour le header */
+    --icon-background: #2979FF;
+    /* Fond bleu pour toutes les icônes en mode nuit */
+    --icon-sun-bg: #2196F3;
+    /* Fond bleu ciel pour les icônes de jour */
+    --icon-moon-bg: #3949AB;
+    /* Fond bleu indigo pour les icônes de nuit */
+
+    /* Variables manquantes pour la surbrillance des résultats de recherche en thème sombre */
+    --dark-hover-background-color: #2a3b4d; /* Bleu plus foncé pour survol/actif en thème sombre */
+    --dark-text-color-strong: var(--accent-color); /* Couleur de texte accentuée pour survol/actif */
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 16px;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: var(--text-primary);
+    background-color: var(--background-main);
+    transition: background-color 0.3s ease;
+}
+
+a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+button {
+    cursor: pointer;
+    font-family: inherit;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+}
+
+/* Container & Layout */
+.app-container {
+    max-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    background-color: var(--header-bg);
+    color: white;
+    box-shadow: 0 2px 4px var(--shadow-color);
+    position: sticky;
+    top: 0;
+    z-index: 10;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.logo i {
+    font-size: var(--font-xl);
+}
+
+.logo h1 {
+    font-size: var(--font-lg);
+    margin-bottom: 0;
+    color: white;
+}
+
+.header-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+.header-actions button {
+    background: none;
+    border: none;
+    color: white;
+    font-size: var(--font-lg);
+    padding: var(--spacing-xs);
+    border-radius: var(--radius-round);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.2s;
+}
+
+.header-actions button:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+main {
+    flex: 1;
+    padding: var(--spacing-md);
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+}
+
+/* Date Display */
+.date-display {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--background-card);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.gregorian-date {
+    font-size: var(--font-lg);
+    font-weight: 600;
+}
+
+.hijri-date {
+    font-size: var(--font-md);
+    color: var(--text-secondary);
+    margin-top: var(--spacing-xs);
+}
+
+/* Location Info */
+.location-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background-color: var(--background-card);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 5px var(--shadow-color);
+}
+
+.location {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.location i {
+    color: var(--primary-color);
+}
+
+/* Next Prayer Info */
+.next-prayer-info {
+    text-align: center;
+    margin-bottom: var(--spacing-lg);
+    padding: var(--spacing-lg);
+    background-color: var(--next-prayer-bg);
+    color: white;
+    border-radius: var(--radius-md);
+    box-shadow: 0 4px 10px var(--shadow-color);
+}
+
+.next-prayer-info h2 {
+    color: white;
+    margin-bottom: var(--spacing-md);
+}
+
+.next-prayer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.prayer-name {
+    font-size: var(--font-lg);
+    font-weight: 600;
+}
+
+.prayer-time {
+    font-size: var(--font-xl);
+    font-weight: 700;
+    text-align: center;
+    grid-column: 2;
+}
+
+.countdown {
+    font-size: var(--font-lg);
+    font-weight: 600;
+    background-color: rgba(255, 255, 255, 0.25);
+    padding: var(--spacing-sm) var(--spacing-md);
+    border-radius: var(--radius-lg);
+    display: inline-block;
+    min-width: 120px;
+    /* Largeur fixe pour éviter les changements de taille */
+    text-align: center;
+    /* Centrer le texte */
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    /* Ombre pour un aspect plus stable */
+    margin: 0 auto;
+    /* Centre le compte à rebours horizontalement */
+    font-variant-numeric: tabular-nums;
+    /* Chiffres monospacés pour éviter les mouvements */
+}
+
+/* Style spécifique pour le compte à rebours en mode sombre */
+.dark-theme .countdown {
+    background-color: rgba(41, 121, 255, 0.2);
+    /* Fond bleu semi-transparent */
+    border: 1px solid rgba(41, 121, 255, 0.3);
+    /* Bordure bleue subtile */
+    box-shadow: 0 2px 12px rgba(0, 30, 60, 0.3);
+    /* Ombre bleue */
+}
+
+/* Prayer Times Section */
+.prayer-times {
+    margin-bottom: var(--spacing-lg);
+}
+
+.prayer-times h2 {
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.prayer-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    align-items: center;
+    padding: var(--spacing-md);
+    margin-bottom: var(--spacing-sm);
+    background-color: var(--background-card);
+    border-radius: var(--radius-md);
+    box-shadow: 0 2px 5px var(--shadow-color);
+    transition: all 0.3s ease;
+}
+
+/* Effet d'ombre amélioré pour les cartes en mode sombre */
+.dark-theme .prayer-card {
+    box-shadow: 0 4px 12px var(--shadow-color), 0 1px 3px rgba(0, 0, 30, 0.3);
+    border: 1px solid rgba(99, 130, 159, 0.1);
+    /* Bordure subtile pour délimiter les cartes */
+}
+
+.prayer-card.active {
+    background-color: var(--active-prayer);
+    border-left: 8px solid var(--primary-color);
+    /* Barre épaisse sur le côté gauche */
+    box-shadow: 0 0 12px var(--active-shadow);
+    /* Halo coloré selon le thème */
+    transform: scale(1.02);
+    /* Légèrement plus grand */
+    z-index: 1;
+    /* Pour que l'ombre soit visible par-dessus les autres cartes */
+    position: relative;
+    /* Nécessaire pour z-index */
+    /* Ajuster le padding pour compenser la bordure */
+    padding-left: calc(var(--spacing-md) - 8px);
+}
+
+/* Ajustement spécifique pour la carte active en mode sombre */
+.dark-theme .prayer-card.active {
+    background-color: var(--active-prayer);
+    /* Utilise la couleur spécifique au thème */
+    border-left: 8px solid var(--primary-light);
+    /* Bordure plus claire */
+    box-shadow: 0 0 15px var(--active-shadow), 0 0 5px var(--active-shadow);
+    /* Halo selon le thème */
+}
+
+.prayer-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    grid-column: 1;
+}
+
+.prayer-icon {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--icon-background);
+    color: white;
+    border-radius: var(--radius-round);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+/* Styles spécifiques pour les icônes de soleil (prières de jour) */
+.prayer-card[data-prayer="fajr"] .prayer-icon,
+.prayer-card[data-prayer="sunrise"] .prayer-icon,
+.prayer-card[data-prayer="dhuhr"] .prayer-icon,
+.prayer-card[data-prayer="asr"] .prayer-icon {
+    background-color: var(--icon-sun-bg);
+}
+
+/* Styles spécifiques pour les icônes de lune (prières de soir) */
+.prayer-card[data-prayer="maghrib"] .prayer-icon,
+.prayer-card[data-prayer="isha"] .prayer-icon {
+    background-color: var(--icon-moon-bg);
+}
+
+.notification-toggle {
+    position: relative;
+    grid-column: 3;
+    justify-self: end;
+}
+
+.notification-checkbox {
+    position: absolute;
+    opacity: 0;
+    height: 0;
+    width: 0;
+}
+
+.notification-checkbox+label {
+    font-size: var(--font-lg);
+    color: var(--text-secondary);
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.notification-checkbox:checked+label {
+    color: var(--primary-color);
+}
+
+.notification-checkbox:focus+label {
+    outline: 2px solid var(--primary-color);
+    outline-offset: 2px;
+}
+
+/* Buttons */
+.btn {
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: var(--font-md);
+    border-radius: var(--radius-md);
+    border: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-sm);
+}
+
+.btn-small {
+    padding: var(--spacing-xs) var(--spacing-sm);
+    font-size: var(--font-sm);
+    border-radius: var(--radius-sm);
+    background: none;
+    border: 1px solid var(--divider-color);
+    color: var(--text-secondary);
+}
+
+.btn-small:hover {
+    background-color: var(--background-card);
+    border-color: var(--text-secondary);
+}
+
+.primary-btn {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.primary-btn:hover {
+    background-color: var(--primary-dark);
+}
+
+.secondary-btn {
+    background-color: transparent;
+    border: 1px solid var(--divider-color);
+    color: var(--text-primary);
+}
+
+.secondary-btn:hover {
+    background-color: var(--background-card);
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    text-decoration: underline;
+    padding: var(--spacing-sm);
+}
+
+.text-btn:hover {
+    color: var(--primary-color);
+}
+
+/* Modals */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal.active {
+    display: flex;
+}
+
+.modal-content {
+    background-color: var(--background-modal);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 5px 15px var(--shadow-color);
+    width: 90%;
+    max-width: 500px;
+    max-height: 85vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md);
+    border-bottom: 1px solid var(--divider-color);
+}
+
+.modal-header h2 {
+    margin-bottom: 0;
+}
+
+.close-btn {
+    font-size: var(--font-xl);
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    cursor: pointer;
+}
+
+.modal-body {
+    padding: var(--spacing-md);
+}
+
+/* Settings Modal */
+.settings-section {
+    margin-bottom: var(--spacing-lg);
+}
+
+.settings-section h3 {
+    margin-bottom: var(--spacing-sm);
+    font-size: var(--font-md);
+}
+
+.select-input {
+    width: 100%;
+    padding: var(--spacing-sm);
+    border: 1px solid var(--divider-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--background-card);
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+}
+
+.radio-group {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.radio-option {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.toggle-option {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: var(--spacing-md);
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--divider-color);
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 16px;
+    width: 16px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked+.slider {
+    background-color: var(--primary-color);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--primary-color);
+}
+
+input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+}
+
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.audio-selection {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-sm);
+}
+
+.adjustment-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-md);
+}
+
+.adjustment-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-xs);
+}
+
+.number-input {
+    padding: var(--spacing-sm);
+    border: 1px solid var(--divider-color);
+    border-radius: var(--radius-sm);
+    background-color: var(--background-card);
+    color: var(--text-primary);
+    font-size: var(--font-sm);
+}
+
+.settings-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-lg);
+}
+
+/* Location Modal */
+.location-options {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-md);
+}
+
+.or-divider {
+    text-align: center;
+    position: relative;
+    margin: var(--spacing-md) 0;
+    color: var(--text-secondary);
+}
+
+.or-divider:before,
+.or-divider:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 40%;
+    height: 1px;
+    background-color: var(--divider-color);
+}
+
+.or-divider:before {
+    left: 0;
+}
+
+.or-divider:after {
+    right: 0;
+}
+
+.search-container {
+    position: relative;
+}
+
+.search-input-container {
+    display: flex;
+    border: 1px solid var(--divider-color);
+    border-radius: var(--radius-sm);
+    position: relative;
+    z-index: 1;
+    background-color: var(--background-card);
+}
+
+#locationSearch {
+    flex-grow: 1;
+    border: none;
+    padding: var(--spacing-sm) var(--spacing-md);
+    font-size: 1rem;
+    border-radius: var(--radius-sm);
+    background-color: transparent;
+    color: var(--text-primary);
+}
+
+.dark-theme .search-input-container {
+    border-color: var(--dark-border-color);
+    background-color: var(--background-color-secondary);
+}
+
+.dark-theme #locationSearch {
+    color: var(--dark-text-color);
+}
+
+.search-results {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid var(--divider-color);
+    border-top: none;
+    border-radius: 0 0 var(--radius-sm) var(--radius-sm);
+    background-color: var(--background-card);
+    box-shadow: var(--shadow-color);
+    margin-top: -1px;
+}
+
+.search-result-item {
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    border-bottom: 1px solid var(--divider-color);
+    color: var(--text-primary);
+    font-size: 0.9rem;
+}
+
+.search-result-item:last-child {
+    border-bottom: none;
+}
+
+.search-result-item:hover,
+.search-result-item--active {
+    background-color: var(--hover-background-color);
+    color: var(--text-color-strong);
+}
+
+.search-result-item.search-message {
+    cursor: default;
+    color: var(--text-secondary);
+    font-style: italic;
+}
+
+.dark-theme .search-results {
+    background-color: var(--background-color-secondary);
+    border-color: var(--dark-border-color);
+}
+
+.dark-theme .search-result-item {
+    border-bottom-color: var(--dark-border-color-light);
+    color: var(--dark-text-color);
+}
+
+.dark-theme .search-result-item:hover,
+.dark-theme .search-result-item--active {
+    background-color: var(--dark-hover-background-color);
+    color: var(--dark-text-color-strong);
+}
+
+.dark-theme .search-result-item.search-message {
+    color: var(--dark-text-color-secondary);
+}
+
+/* Notification Modal */
+.notification-actions {
+    display: flex;
+    justify-content: space-between;
+    margin-top: var(--spacing-md);
+}
+
+/* Loader */
+.loader-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.7);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    color: white;
+    display: none;
+}
+
+.loader-container.active {
+    display: flex;
+}
+
+.loader {
+    border: 5px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top: 5px solid var(--primary-color);
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: var(--spacing-md);
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* Install Prompt */
+.install-prompt {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: var(--background-modal);
+    padding: var(--spacing-md);
+    box-shadow: 0 -2px 10px var(--shadow-color);
+    display: none;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 50;
+}
+
+.install-prompt.active {
+    display: flex;
+}
+
+.install-prompt p {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.install-actions {
+    display: flex;
+    gap: var(--spacing-sm);
+}
+
+/* Styles pour le sélecteur de langues */
+.language-selector-container {
+    position: relative;
+    margin-right: var(--spacing-sm);
+}
+
+#languageToggle {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    color: white;
+    font-size: var(--font-md);
+    cursor: pointer;
+    padding: var(--spacing-xs) var(--spacing-sm);
+    border-radius: var(--radius-sm);
+    transition: background-color 0.2s;
+}
+
+#languageToggle:hover {
+    background-color: rgba(255, 255, 255, 0.2);
+}
+
+.current-lang {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.language-dropdown {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 200px;
+    background-color: var(--background-modal);
+    border-radius: var(--radius-md);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    overflow: hidden;
+    z-index: 100;
+    opacity: 0;
+    transform: translateY(10px);
+    pointer-events: none;
+    transition: all 0.2s ease-in-out;
+}
+
+.language-dropdown.active {
+    opacity: 1;
+    transform: translateY(5px);
+    pointer-events: all;
+}
+
+.language-option {
+    display: flex;
+    align-items: center;
+    padding: var(--spacing-sm) var(--spacing-md);
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--text-primary);
+}
+
+.language-option:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+.dark-theme .language-option:hover {
+    background-color: rgba(41, 121, 255, 0.2);
+}
+
+.language-option.active {
+    background-color: rgba(76, 175, 80, 0.2);
+    font-weight: bold;
+}
+
+.dark-theme .language-option.active {
+    background-color: rgba(41, 121, 255, 0.3);
+}
+
+.lang-flag {
+    font-size: 1.2rem;
+    margin-right: var(--spacing-sm);
+}
+
+.lang-name {
+    font-size: 0.9rem;
+}
+
+/* Animation pour le menu déroulant */
+@keyframes fadeInDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in-down {
+    animation: fadeInDown 0.3s ease-out;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 600px) {
+    html {
+        font-size: 14px;
+    }
+
+    .adjustment-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .install-prompt {
+        flex-direction: column;
+        gap: var(--spacing-md);
+    }
+
+    .install-actions {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .header-actions {
+        width: 100%;
+        justify-content: space-between;
+        flex-direction: column;
+    }
+
+    .language-dropdown {
+        width: 180px;
+        right: -10px;
+    }
+
+    .lang-name {
+        font-size: 0.8rem;
+    }
+
+    #languageToggle .current-lang {
+        display: none;
+        /* Masquer le code de langue sur mobile */
+    }
+}
+
+@media (max-width: 400px) {
+    .logo h1 {
+        font-size: var(--font-md);
+    }
+
+    .header-actions button {
+        font-size: var(--font-md);
+    }
+
+    .prayer-icon {
+        width: 32px;
+        height: 32px;
+    }
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(20px);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+.slide-up {
+    animation: slideUp 0.5s ease-out;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    border: 0;
+}
+
+/* Footer Styles */
+footer {
+    background-color: var(--header-bg);
+    color: white;
+    text-align: center;
+    padding: 20px 15px;
+    margin-top: auto;
+}
+
+footer .footer-link {
+    display: inline-block;
+    color: white;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: var(--radius-round);
+    transition: background-color 0.3s ease, color 0.3s ease;
+    margin-bottom: 10px;
+}
+
+footer .footer-link:hover,
+footer .footer-link:focus {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+    text-decoration: none;
+}
+
+footer .copyright {
+    font-size: 0.9em;
+    color: rgba(255, 255, 255, 0.7);
+    margin: 0;
+}
+
+/* Ajustements pour le thème sombre si nécessaire */
+.dark-theme footer {
+    /* background-color est déjà géré par --header-bg qui s'adapte au thème sombre */
+    /* color: white; est déjà défini et convient au header sombre */
+    /* border-top: 1px solid var(--dark-border-color); */
+    /* Optionnel */
+}
+
+.dark-theme footer .footer-link {
+    /* color: white; est déjà défini */
+}
+
+.dark-theme footer .footer-link:hover,
+.dark-theme footer .footer-link:focus {
+    background-color: rgba(255, 255, 255, 0.15);
+    /* Léger ajustement pour le thème sombre si besoin */
+}
+
+.dark-theme footer .copyright {
+    color: rgba(255, 255, 255, 0.6);
+    /* Ajustement pour le thème sombre */
+}
+
+/* Styles pour le bouton d'arrêt de l'Adhan */
+#stopAdhanSoundBtn {
+    background-color: #f44336;
+    /* Couleur rouge pour "stop" */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    /* Pour le rendre rond */
+    width: 70px;
+    /* Ajustez la taille selon vos besoins */
+    height: 70px;
+    /* Ajustez la taille selon vos besoins */
+    font-size: 13px;
+    /* Ajustez si nécessaire */
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    /* Ombre portée */
+    /* Utiliser flex pour un centrage facile du texte, même sur plusieurs lignes */
+    display: flex;
+    flex-direction: column;
+    /* Si le texte doit être sur plusieurs lignes et centré */
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    /* Un peu de padding pour le texte */
+    line-height: 1.1;
+    /* Ajustez pour le texte sur plusieurs lignes */
+    /* Le positionnement (margin-top, display:none) est géré en inline et JS pour l'instant */
+    /* Mais vous pouvez ajouter ici : */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#stopAdhanSoundBtn:hover {
+    background-color: #d32f2f;
+    /* Rouge plus foncé au survol */
+}
